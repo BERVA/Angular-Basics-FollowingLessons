@@ -48,7 +48,7 @@ export class AppComponent implements OnInit{
       'userData': {
         'username': 'Anna'
       }
-    })
+    });
   }
 
   onSubmit(){
