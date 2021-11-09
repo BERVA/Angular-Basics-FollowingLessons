@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import {Post} from './post.model';
 import {PostsService} from './posts.service';
 import {Subscription} from 'rxjs';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,9 +14,7 @@ export class AppComponent implements OnInit, OnDestroy {
   isFetching = false;
   error: any = null;
   private  errorSub : Subscription;
-
   constructor(private http: HttpClient, private postService: PostsService) {}
-
   ngOnInit() {
     this.isFetching = true;
      this.errorSub =  this.postService.error.subscribe( errorMessage => {
@@ -33,11 +30,9 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     );
   }
-
   onCreatePost(postData: Post) {
     // Send Http request // Angular transform json.
     this.postService.createAndStorePost(postData.title, postData.content)
-
   }
   onFetchPosts() {
     // Send Http request
@@ -49,23 +44,18 @@ export class AppComponent implements OnInit, OnDestroy {
       }, error => {
         this.error = error.message;
         this.isFetching = false;
-
       }
     );
   }
-
   onClearPosts() {
     this.postService.deletePosts().subscribe(()=>{
       this.loadedPosts = [];
     })
   }
-
   onHandleError(){
     this.error = null;
   }
-
   ngOnDestroy() {
     this.errorSub.unsubscribe();
   }
-
 }
